@@ -12,3 +12,14 @@ def one(_list):
 
     print(c)
 
+
+# print quantity of local maximums of list
+def two(_list):
+    c = 0
+
+    for i in range(1, len(_list) - 1):
+        if (_list[i-1] < _list[i]) and (_list[i] > _list[i+1]):
+            c += 1
+
+    print(c)
+
