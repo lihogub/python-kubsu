@@ -14,4 +14,19 @@ def task1():
     print(len(colors_intersect), colors_intersect)
     print(len(colors_diff), colors_diff)
 
-task1()
+
+# children languages, languages count -> languages union, languages intersection
+def task2():
+    children_count = int(input("Children count: "))
+
+    children_langs_list = [set(input("Child " + str(i) + ": ").split()) for i in range(children_count)]
+
+    un = reduce(lambda prev, cur: prev.union(cur), children_langs_list, set())
+
+    inter = reduce(lambda prev, cur: prev.intersection(cur), children_langs_list, children_langs_list[0])
+
+    print(un)
+    print(inter)
+
+
+task2()
