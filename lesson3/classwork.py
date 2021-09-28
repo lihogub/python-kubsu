@@ -11,3 +11,18 @@ def task01():
         print(ABMap[T])
     else:
         print("Nope")
+
+
+# Input: string containing words. Output: each word changed to number it appeared previously
+def task02():
+    word_counter_map = {}
+    result_list = []
+    word_list = input("Input: ").split()
+    for word in word_list:
+        if word not in word_counter_map:
+            result_list.append(0)
+            word_counter_map[word] = 1
+        else:
+            result_list.append(word_counter_map[word])
+            word_counter_map[word] += 1
+    print("Input: " + str(result_list))
