@@ -26,3 +26,18 @@ def task02():
             result_list.append(word_counter_map[word])
             word_counter_map[word] += 1
     print("Input: " + str(result_list))
+
+
+# Input: string containing words. Output: the most often word (return the least lexicographically if there are few same often words)
+def task03():
+    word_counter_map = {}
+    word_list = input("Input: ").split()
+    for word in word_list:
+        if word not in word_counter_map:
+            word_counter_map[word] = 1
+        else:
+            word_counter_map[word] += 1
+
+    r = [(-val, key) for key, val in word_counter_map.items()]
+    r.sort()
+    print(r[0][1])
