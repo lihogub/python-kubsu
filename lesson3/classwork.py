@@ -41,3 +41,16 @@ def task03():
     r = [(-val, key) for key, val in word_counter_map.items()]
     r.sort()
     print(r[0][1])
+
+
+# Input: N pairs of city and country. Output: synonym for last input word
+def task04():
+    country_city_map = {}
+    n = int(input("N:"))
+    for i in range(n):
+        city, country = input().split()
+        country_city_map[country] = city
+    r = sorted(country_city_map.items())
+    r = list(map(lambda x: " ".join(x), r))
+    r = "\n".join(r)
+    print(r)
