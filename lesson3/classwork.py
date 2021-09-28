@@ -54,3 +54,20 @@ def task04():
     r = list(map(lambda x: " ".join(x), r))
     r = "\n".join(r)
     print(r)
+
+
+# Input: N lines. Each line: <country [city1]>. K lines. Each line: <city>. Output: K countries.
+def task05():
+    city_country_map = {}
+    n = int(input("N: "))
+    for i in range(n):
+        country, *city_list = input().split()
+        for city in city_list:
+            city_country_map[city] = country
+
+    result_list = []
+    k = int(input("K: "))
+    for i in range(k):
+        result_list.append(city_country_map[input()])
+    result = "\n".join(result_list)
+    print(result)
