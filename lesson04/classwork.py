@@ -46,3 +46,21 @@ def task04():
     lines = file.readlines()
     result = "".join(reversed(lines))
     print(result)
+
+
+# Print line count, word count, symbol count
+def task05():
+    file = open("input5.txt", "r")
+    lines = file.readlines()
+    word_set = set()
+    symbol_set = set()
+    for line in lines:
+        for word in filter(str.isalpha, line.split()):
+            word_set.add(word)
+            symbol_set.update(word)
+
+    count_lines = len(lines)
+    count_words = len(word_set)
+    count_symbols = len(symbol_set)
+
+    print(f"Lines: {count_lines}\nWords: {count_words}\nSymbols: {count_symbols}")
