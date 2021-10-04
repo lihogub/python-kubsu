@@ -10,3 +10,13 @@ def task01():
     word_count = len(word_set)
     print(f"Word count: {word_count}")
 
+
+# Print sum of each line
+def task02():
+    file = open("input2.txt", "r")
+    lines = file.readlines()
+    result = []
+    for line in lines:
+        numbers = list(map(int, line.split()))
+        result.append(sum(numbers))
+    print(f"Result: {result}")
