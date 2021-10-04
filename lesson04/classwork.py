@@ -38,3 +38,11 @@ def task03():
     word_list = [word for count, word in count_word_list]
     result = " ".join(word_list)
     print(result)
+
+
+# Print lines reversed
+def task04():
+    file = open("input4.txt", "r")
+    lines = file.readlines()
+    result = "".join(reversed(lines))
+    print(result)
