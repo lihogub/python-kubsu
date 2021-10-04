@@ -1,9 +1,6 @@
-import random
-
-
 def task01():
     n = int(input("N:"))
-    number_list = [int(input()) for i in range(n)]
+    number_list = [int(input()) for _ in range(n)]
     digit_map = {}
 
     for number in number_list:
@@ -12,6 +9,8 @@ def task01():
                 digit_map[digit] += 1
             else:
                 digit_map[digit] = 1
+
+    print("Digits: ", digit_map)
 
     even_odd_list = list(map(lambda x: x % 2, digit_map.values()))
     odd = even_odd_list.count(1)
