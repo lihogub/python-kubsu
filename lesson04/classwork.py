@@ -64,3 +64,10 @@ def task05():
     count_symbols = len(symbol_set)
 
     print(f"Lines: {count_lines}\nWords: {count_words}\nSymbols: {count_symbols}")
+
+
+# Print file reversed
+def task06():
+    file = open("input6.txt", "r")
+    result = "".join(file.read()[::-1])
+    print(result)
