@@ -20,3 +20,21 @@ def task02():
         numbers = list(map(int, line.split()))
         result.append(sum(numbers))
     print(f"Result: {result}")
+
+
+# Print words in order of descending by count and then ascending lexicographically
+def task03():
+    file = open("input3.txt", "r")
+    lines = file.readlines()
+    words = dict()
+    for line in lines:
+        for word in line.split():
+            if word in words:
+                words[word] -= 1
+            else:
+                words[word] = -1
+
+    count_word_list = sorted([(count, word) for word, count in words.items()])
+    word_list = [word for count, word in count_word_list]
+    result = " ".join(word_list)
+    print(result)
