@@ -1,3 +1,5 @@
+import re
+
 # Print word count
 def task01():
     file = open("input1.txt", "r")
@@ -37,6 +39,9 @@ def task03():
     count_word_list = sorted([(count, word) for word, count in words.items()])
     word_list = [word for count, word in count_word_list]
     result = " ".join(word_list)
+    file2 = open("output5.txt", "w")
+    file2.write(result)
+    file2.close()
     print(result)
 
 
@@ -52,17 +57,18 @@ def task04():
 def task05():
     file = open("input5.txt", "r")
     lines = file.readlines()
-    word_set = set()
-    symbol_set = set()
+    word_list = []
+    symbol_list = []
+    pattern = r'[a-zA-Z]+'
     for line in lines:
-        for word in filter(str.isalpha, line.split()):
-            word_set.add(word)
-            symbol_set.update(word)
+        for word in re.findall(pattern, line):
+            print(word)
+            word_list.append(word)
+            symbol_list.extend(word)
 
     count_lines = len(lines)
-    count_words = len(word_set)
-    count_symbols = len(symbol_set)
-
+    count_words = len(word_list)
+    count_symbols = len(symbol_list)
     print(f"Lines: {count_lines}\nWords: {count_words}\nSymbols: {count_symbols}")
 
 
@@ -71,3 +77,5 @@ def task06():
     file = open("input6.txt", "r")
     result = "".join(file.read()[::-1])
     print(result)
+
+task05()
