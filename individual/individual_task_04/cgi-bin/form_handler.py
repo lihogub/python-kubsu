@@ -37,7 +37,7 @@ subject_list = [
     ('работник',),
     ('работодатель',),
 ]
-cursor.executemany("INSERT INTO subject (name) VALUES (?);", subject_list)
+cursor.executemany("INSERT INTO subject (name) VALUES (?)  on conflict do nothing;", subject_list)
 
 codex_list = [
     ('none',),
@@ -46,7 +46,7 @@ codex_list = [
     ('трудовой',),
     ('налоговый',)
 ]
-cursor.executemany("INSERT INTO codex (title) VALUES (?);", codex_list)
+cursor.executemany("INSERT INTO codex (title) VALUES (?)  on conflict do nothing;", codex_list)
 
 law_list = [
     (
@@ -64,7 +64,7 @@ INSERT INTO law (text, subject_id, codex_id) VALUES
         ?,
         (SELECT id FROM subject WHERE name == ?),
         (SELECT id FROM codex WHERE title == ?)
-    );    
+    )  on conflict do nothing;    
 ''', law_list)
 
 form = cgi.FieldStorage()
@@ -78,17 +78,12 @@ cursor.execute('''
             ?,
             (SELECT id FROM subject WHERE name == ?),
             (SELECT id FROM codex WHERE title == ?)
-        );    
+        ) on conflict do nothing;    
     ''', (text, subject, codex))
 
-cursor.execute("select * from law;")
-allRecords = cursor.fetchall()
-
-cursor.execute("select text from subject s join law l on s.id == l.subject_id where s.name == 'физлицо';")
-naturalRecords = cursor.fetchall()
-
-cursor.execute("select title, count(*) from codex c left outer join law l on c.id == l.codex_id group by c.title")
-groupedByCodexRecords = cursor.fetchall()
+conn.commit()
+cursor.close()
+conn.close()
 
 print("Content-type: text/html\n")
 print("""<!DOCTYPE HTML>
@@ -96,22 +91,6 @@ print("""<!DOCTYPE HTML>
             <head>
                 <meta charset="utf-8">
                 <title>Обработка данных форм</title>
-            </head>
-            <body>""")
-
-print("<h2>Все записи в базе законов</h2>")
-[print(f'{record}<br>') for record in allRecords]
-print("<br>")
-
-print("<h2>Законы, где субъекты физлица</h2>")
-[print(f'{record}<br>') for record in naturalRecords]
-print("<br>")
-
-print("<h2>Количество законов по кодексам</h2>")
-[print(f'{record}<br>') for record in groupedByCodexRecords]
-
-print("</body>")
+                <meta http-equiv="refresh" content="0; url=/cgi-bin/stats.py" />
+            </head>""")
 print("</html>")
-
-cursor.close()
-conn.close()
